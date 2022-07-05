@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useRef } from "react";
 
 import './App.css';
 
@@ -39,6 +40,8 @@ function InputSample() {
     name: "홍길동", email: "hong@abc.com",
   });
 
+  const nameInput = useRef();
+
   const {name, email} = inputs;
 
   const onReset = () => {
@@ -46,6 +49,7 @@ function InputSample() {
       name : "",
       email: ""
     });
+    nameInput.current.focus();
   }
   const onChangeInput = (inputT) => {
     const {value, name} = inputT.target;
@@ -67,14 +71,39 @@ function InputSample() {
   );
 }
 
+function User({user}) {
+  return (
+    <div>
+      <h1>이름 : {user.username}</h1>
+      <h1>이메일 : {user.email}</h1>
+    </div>
+  );
+}
+
+function UserList() {
+
+  const users = [
+    {id:1, username:"홍길동", email:"hong@abc.com"},
+    {id:2, username:"이순신", email:"lee@gubuk.com"}
+  ];
+
+  return (
+    <div>
+      <User user={users[0]}></User>
+      <User user={users[1]}></User>
+    </div>
+  );
+}
+
 
 function App() {
   return (
     <div className="App">
      {/* <Hello name="리엑트" color="red"></Hello>
      <Hello color="blue"></Hello> 
-     <Counter></Counter>*/}
-     <InputSample></InputSample>
+     <Counter></Counter>
+     <InputSample></InputSample>*/}
+     <UserList></UserList>
     </div>
   );
 }
